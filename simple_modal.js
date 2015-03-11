@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
 	var simpleModals = $(".simple-modal-wrapper");
 	var simpleModalTriggers = $(".simple-modal-trigger");
 	var imageModals = $(".image-modal");
@@ -56,54 +57,94 @@ $(document).ready(function () {
 		var pageImageWidth = $(this).css("width");
 
 		//clone the image and remove the modal image class(useful if we are using delegate)
-		var modalImg = $(this).clone().removeClass("image-modal");
+		//class "image-modal-image" is added for increasing specificity of the css selector
+		var modalImg = $(this).clone().removeClass("image-modal").addClass("image-modal-image");
 		imageDiv.append(modalImg);
+
+		//adding close handler on div, since click on img will bubble up
 		imageDiv.on("click.modal", closeImageModal);
 
 		$(document.body).append(imageDiv);
-		var actualImageWidth = modalImg.css("width");
-		var actualImageHeight = modalImg.css("height");
-		modalImg.css("width", pageImageWidth);
 
-		// if image is bigger than the viewport width
-		var viewportWidth = $(window).innerWidth();
-		var finalImageWidth = Math.min(parseInt(actualImageWidth, 10), (parseInt(viewportWidth, 10)) - 20);
-		centerImageModal();
-
-		modalImg.animate({
-			width: finalImageWidth }, {
-				duration: 150
-		});
-		handleScroll();
-
-		// inner helper functions
-		function closeImageModal() {
-
-			modalImg.stop().animate({
-				width: pageImageWidth }, {
-					duration: 150,
-					complete: function () {
-						imageDiv.remove();
-					}
-			});
-			handleScroll();
+		var speed = parseInt(modalImg.attr("data-animation-speed"), 10) || 150;
+		if (pageImageWidth === modalImg.css("width")) {
+			speed = 0;
 		}
 
-		function centerImageModal() {
-			var horMargin = (viewportWidth - finalImageWidth)/2;
-			var verMargin = (parseInt($(window).innerHeight(), 10) - parseInt(actualImageHeight, 10))/2;
+		//handles the animation and layout
+		setImageModal(imageDiv, pageImageWidth, speed);
 
-			modalImg.css({
-				marginTop:verMargin,
-				marginBottom:verMargin,
-				marginLeft:horMargin,
-				marginRight:horMargin
+		// inner helper functions
+		function closeImageModal(event) {
+
+			event.stopPropagation();
+			modalImg.stop().animate({
+				width: pageImageWidth }, {
+					duration: speed,
+					complete: function () {
+						imageDiv.remove();
+						handleScroll();
+					}
 			});
 		}
 	}
 
+	function setImageModal(m, initialWidth, speed) {
+		/*this can be called seperately on browser resize
+		to make the modal fairly resposive*/
+
+		var image = $("img", m);
+		var imageWidth = parseInt(image.css("width"), 10);
+		var imageHeight = parseInt(image.css("height"), 10);
+		
+		if(initialWidth) {
+			//set width back to initial width
+			// to scale from original size
+			image.css("width", initialWidth);
+		}
+		
+		var viewportWidth = parseInt($(window).innerWidth(), 10);
+		var viewportHeight = parseInt($(window).innerHeight(), 10);
+
+		// if image is bigger than the viewport width
+		var finalImageWidth = Math.min(imageWidth, (viewportWidth-20));
+
+		centerImageModal();
+		image.animate({
+			width: finalImageWidth }, {
+				duration: speed
+		});
+		handleScroll();
+
+
+		// helper function
+		function centerImageModal() {
+			
+			var horMargin = finalImageWidth/2;
+			var verMargin = imageHeight/2;
+
+			//always center horizontally
+			image.css({
+				position:"absolute",
+				left: "50%",
+				marginLeft: -horMargin
+			});
+
+			/* center vertically only if image height is smaller than viewport; else
+				the 'max-height:100%(in css)' will force it to scale to viewport
+				and set its width accordingly too  */
+			if (imageHeight < viewportHeight) {
+				image.css({
+					top: "50%",
+					marginTop: -verMargin
+				});
+			}
+		} 
+	}
+
 	function handleScroll() {
 
+		//make viewport un-scrollable
 		var body = $('body');
 		if (body.css("overflow") !== "hidden"){
 			body.css("overflow", "hidden");
@@ -112,4 +153,5 @@ $(document).ready(function () {
 		}
 		
 	}
+
 });
