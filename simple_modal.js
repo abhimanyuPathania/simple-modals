@@ -11,6 +11,7 @@ $(document).ready(function () {
 
 	simpleModalTriggers.on("click.modal", openModal);
 	imageModals.on("click.modal", viewImageModal);
+	$(window).on("resize.modal", resizeImageModal);
 
 	function openModal(event) {
 
@@ -54,7 +55,7 @@ $(document).ready(function () {
 		var imageDiv = $("<div class='image-modal-div'></div>");
 
 		//image width as set by the user
-		var pageImageWidth = $(this).css("width");
+		var pageImageWidth = $(this).width();
 
 		//clone the image and remove the modal image class(useful if we are using delegate)
 		//class "image-modal-image" is added for increasing specificity of the css selector
@@ -67,12 +68,12 @@ $(document).ready(function () {
 		$(document.body).append(imageDiv);
 
 		var speed = parseInt(modalImg.attr("data-animation-speed"), 10) || 150;
-		if (pageImageWidth === modalImg.css("width")) {
+		if (pageImageWidth === modalImg.width()) {
 			speed = 0;
 		}
 
 		//handles the animation and layout
-		setImageModal(imageDiv, pageImageWidth, speed);
+		setImageModal(modalImg, pageImageWidth, speed);
 
 		// inner helper functions
 		function closeImageModal(event) {
@@ -83,38 +84,41 @@ $(document).ready(function () {
 					duration: speed,
 					complete: function () {
 						imageDiv.remove();
-						handleScroll();
+						allowScroll(true);
 					}
 			});
 		}
 	}
 
-	function setImageModal(m, initialWidth, speed) {
+	function setImageModal(image, initialWidth, speed) {
 		/*this can be called seperately on browser resize
 		to make the modal fairly resposive*/
 
-		var image = $("img", m);
-		var imageWidth = parseInt(image.css("width"), 10);
-		var imageHeight = parseInt(image.css("height"), 10);
+		var imageWidth = image.width();
+		var imageHeight = image.height(); 
 		
 		if(initialWidth) {
-			//set width back to initial width
-			// to scale from original size
+			/*set width back to initial width to scale from original size
+			initialWidth is not needed when setImageModal is called by browser resize */
 			image.css("width", initialWidth);
 		}
 		
-		var viewportWidth = parseInt($(window).innerWidth(), 10);
-		var viewportHeight = parseInt($(window).innerHeight(), 10);
+		var viewportWidth =  $(window).width(); 
+		var viewportHeight =  $(window).height();
 
 		// if image is bigger than the viewport width
 		var finalImageWidth = Math.min(imageWidth, (viewportWidth-20));
-
 		centerImageModal();
+		
+		if (!speed) {
+			// no animation when browser resizes
+			speed = 0;
+		}
 		image.animate({
 			width: finalImageWidth }, {
 				duration: speed
 		});
-		handleScroll();
+		allowScroll(false);
 
 
 		// helper function
@@ -142,16 +146,27 @@ $(document).ready(function () {
 		} 
 	}
 
-	function handleScroll() {
+	function resizeImageModal(event) {
+		var modalImgDiv = $(".image-modal-div");
+		if (modalImgDiv.length === 0) {
+			return;
+		}
+
+		var modalImg = $("img" ,modalImgDiv);
+		modalImg.removeAttr('style');
+		setImageModal(modalImg);
+	}
+
+	function allowScroll(allow) {
 
 		//make viewport un-scrollable
 		var body = $('body');
-		if (body.css("overflow") !== "hidden"){
-			body.css("overflow", "hidden");
-		} else {
+
+		if(allow) {
 			body.css("overflow", "");
-		}
-		
+		} else {
+			body.css("overflow", "hidden");
+		}	
 	}
 
 });
