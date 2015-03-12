@@ -1,7 +1,11 @@
-.simple-modal-wrapper{
+
+
+.simple-modal-wrapper, .simple-modal-wrapper *{
 	padding: 0;
 	margin: 0;
+}
 
+.simple-modal-wrapper{
 	display: none;
 	position: fixed;
 	top: 0;
@@ -12,14 +16,9 @@
 	background-color: rgba(48,48,48, 0.7);
 }
 
-.simple-modal-wrapper *{
-	padding: 0;
-	margin: 0;
-}
-
 .modal-content{
 	border-radius: 0px;
-	box-shadow: 0px 0px 5px 0px rgba(255, 255, 255, 0.8); 
+	box-shadow: 0px 0px 4px 0px rgba(255, 255, 255, 0.8); 
 
 
 	width: 50%;
@@ -64,6 +63,9 @@
 	border-bottom-right-radius: inherit;
 }
 
+
+/*---------------------------------------------- IMAGE MODAL STYLES ----------------------------------------------*/
+
 .image-modal {
 
 	cursor: pointer;
@@ -98,5 +100,29 @@
 
 	/*this scales images to viewport height */
 	max-height: 100%;
+}
+
+.close-image-modal {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+
+	font-size: 3em;
+	font-weight: normal;
+	line-height: 0.5em;
+
+	cursor: pointer;
+	-webkit-transition: color 0.2s ease-in-out,
+						opacity 0.2s ease-in-out;
+	transition: color 0.2s ease-in-out,
+				opacity 0.2s ease-in-out;	
+
+	/*text-shadow: 0px 0px 1px rgba(255,255,255, 0.8);*/
+	opacity: 0.7;
+}
+
+.close-image-modal:hover {
+	color:#FFF;
+	opacity: 1;
 }
 

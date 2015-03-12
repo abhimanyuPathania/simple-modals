@@ -1,15 +1,15 @@
 $(document).ready(function () {
 
 	var simpleModals = $(".simple-modal-wrapper");
-	var simpleModalTriggers = $(".simple-modal-trigger");
 	var imageModals = $(".image-modal");
 
 	if (simpleModals.length === 0 && imageModals.length === 0) {
 		// if user has no modals; return
 		return false;
 	}
-
+	var simpleModalTriggers = $(".simple-modal-trigger");
 	simpleModalTriggers.on("click.modal", openModal);
+
 	imageModals.on("click.modal", viewImageModal);
 	$(window).on("resize.modal", resizeImageModal);
 
@@ -25,6 +25,14 @@ $(document).ready(function () {
 		//attach closeModal to the dark background click
 		modalDiv.on("click.modal", closeModal);
 
+		//if user wants to create his custom button to close the modal
+		// this obviously will have to inside the .modal-content
+		var simpleModalClose = $(".simple-modal-close", modalDiv);
+		if (simpleModalClose.length > 0) {
+			//if exsist attack the same close function
+			simpleModalClose.on("click.modal", closeModal);
+		}
+
 		//create the close mark and attach closeModal event handler
 		var closeMark = $("<span class='close-modal'>&times;</span>");
 		closeMark.on("click.modal", closeModal);
@@ -33,8 +41,17 @@ $(document).ready(function () {
 			// dont add the 'x' mark if already there
 			modalHeading.append(closeMark);
 		}
+
+		var duration = 200;
+		var durationAttr = parseInt(modalDiv.attr("data-animation-duration"), 10);
+
+		if (!isNaN(durationAttr)) {
+			//to assign animation-duration of 0ms.
+			//we get NaN if user omits this attribute hence using isNaN()
+			duration = durationAttr;
+		}
 		
-		modalDiv.fadeIn(300);
+		modalDiv.fadeIn(duration);
 
 		function closeModal(event) {
 
@@ -47,33 +64,43 @@ $(document).ready(function () {
 				the modal*/
 				return false;
 			}
-			modalDiv.fadeOut(300);
+			modalDiv.fadeOut(duration);
 		}
 	}
 
 	function viewImageModal(event) {
 		var imageDiv = $("<div class='image-modal-div'></div>");
+		var closeMark = $("<span class='close-image-modal'>&times;</span>");
 
-		//image width as set by the user
+		//image width as set by the user(css or style)
 		var pageImageWidth = $(this).width();
 
 		//clone the image and remove the modal image class(useful if we are using delegate)
 		//class "image-modal-image" is added for increasing specificity of the css selector
 		var modalImg = $(this).clone().removeClass("image-modal").addClass("image-modal-image");
 		imageDiv.append(modalImg);
+		imageDiv.append(closeMark);
 
 		//adding close handler on div, since click on img will bubble up
 		imageDiv.on("click.modal", closeImageModal);
 
 		$(document.body).append(imageDiv);
 
-		var speed = parseInt(modalImg.attr("data-animation-speed"), 10) || 150;
+		var duration = 150;
+		var durationAttr = parseInt(modalImg.attr("data-animation-duration"), 10);
+
+		if (!isNaN(durationAttr)) {
+			//to assign animation-duration of 0ms.
+			//we get NaN if user omits this attribute hence using isNaN()
+			duration = durationAttr;
+		}
+
 		if (pageImageWidth === modalImg.width()) {
-			speed = 0;
+			duration = 0;
 		}
 
 		//handles the animation and layout
-		setImageModal(modalImg, pageImageWidth, speed);
+		setImageModal(modalImg, pageImageWidth, duration);
 
 		// inner helper functions
 		function closeImageModal(event) {
@@ -81,7 +108,7 @@ $(document).ready(function () {
 			event.stopPropagation();
 			modalImg.stop().animate({
 				width: pageImageWidth }, {
-					duration: speed,
+					duration: duration,
 					complete: function () {
 						imageDiv.remove();
 						allowScroll(true);
