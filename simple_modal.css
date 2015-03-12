@@ -21,7 +21,10 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    	transform: translate(-50%, -50%)
 }
 
 .modal-heading{
@@ -50,7 +53,6 @@
 	font-size: 2em;
 	font-weight: normal;
 
-	-webkit-transition: color 0.2s ease-in-out;
 	transition: color 0.2s ease-in-out;
 }
 
@@ -146,12 +148,8 @@
 	line-height: 0.5em;
 
 	cursor: pointer;
-	-webkit-transition: color 0.2s ease-in-out,
-						opacity 0.2s ease-in-out;
 	transition: color 0.2s ease-in-out,
 				opacity 0.2s ease-in-out;	
-
-	/*text-shadow: 0px 0px 1px rgba(255,255,255, 0.8);*/
 	opacity: 0.7;
 }
 
