@@ -1,0 +1,157 @@
+*{
+	padding:0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body{
+	font-family: 'Open Sans', Helvetica, sans-serif;
+	font-size: 20px;
+	font-weight: 300;
+	color: #777;
+}
+
+a{
+	text-decoration: none;
+}
+
+button{
+	-webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+
+    border: 1px solid;
+    border-radius: 5px;
+    color: inherit;
+
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.15s ease-in-out;
+}
+
+
+
+
+header{
+	display: flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content: center;
+
+	height: 600px;
+	background-color: #ecf0f1;
+
+	/* fix background */
+    background-attachment: fixed;
+
+    /* center it */
+    background-position: center center;
+
+    /* Scale it nicely to the element */
+    background-size: cover;
+}
+
+header h1{
+	font-weight: 300;
+	font-size: 5em;
+	color: #3498db;
+}
+
+header p{
+	font-size: 1.5em;
+}
+
+header button{
+	margin-top: 40px;
+	padding: 20px 40px;
+
+	font-size: 1.1em;
+	font-weight: 400;
+
+	background-color: #3498db;
+	border-color: #3498db;
+	color: #fff;
+}
+
+header button:hover{
+	border-color: #34D6D5;
+	background-color: #34D6D5;
+}
+
+.main-wrapper{
+	max-width: 650px;
+	margin: 0px auto;
+	margin-top: 40px;
+}
+
+code, pre{
+	font-family: 'Inconsolata', 'Open Sans', Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: normal;
+	background-color: #ecf0f1;
+	color: #888;
+}
+
+code{
+	padding: 3px 5px;
+	border-radius: 5px;
+}
+
+pre code{
+	/* use only pre styles for code blocks */
+	padding: 0px;
+	border-radius: 0px;
+	max-width: 100%;
+	word-wrap: break-word;
+}
+
+
+pre{
+	line-height: 1.1em;
+	border-radius: 8px;
+
+	padding: 20px;
+
+	white-space: pre-wrap;       /* css-3 */
+	white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+	white-space: -pre-wrap;      /* Opera 4-6 */
+	white-space: -o-pre-wrap;    /* Opera 7 */
+	word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+
+h2{
+	font-size: 1.5em;
+	font-weight: 400;
+	text-align: center;
+	color: #3498db;
+
+	margin-bottom: 20px;
+}
+
+h4{
+	font-size: 1.2em;
+	font-weight: 400;
+	text-align: center;
+
+	margin-bottom: 15px;
+}
+
+p{
+	line-height: 1.5em;
+
+	margin-bottom: 10px;
+}
+
+hr{
+	font-weight: 300;
+	color: #F5F9FA;
+}
+
+section{
+	margin-bottom: 40px;
+}
+
+section p{
+	margin-bottom: 20px;
+}
