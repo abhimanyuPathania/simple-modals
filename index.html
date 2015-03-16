@@ -12,22 +12,33 @@
 	<header>
 		<h1>simple-modals</h1>
 		<p>modals made easy</p>
-		<button>View on Github</button>
+		<p>
+			<button class="simple-modal-trigger" data-trigger-modal-id = "mod1">Demo</button>
+			<button id="toGithub">View on Github</button>
+		</p>
 	</header>
 	<div class="main-wrapper">
 
 		<div class="content">
 
 			<article>
+				<h2>Importing into project</h2>
+				<p>You can download the ZIP from <a href="https://github.com/abhimanyuPathania/simple-modals">GitHub</a>.</p>
+				<p>Since <span class="blue-text">simple-modals</span> uses jQuery, you must have it in your HTML. Add another <code>script</code> tag below the jQuery <code>script</code> tag and source it to the <code>simple-modal-min.js</code> file.</p>
+
+				<p>Then link the <code>simple-modal-min.css</code> file into your HTML and we are ready.</p> 
+			</article>
+
+			<article>
 				<h2>modals for HTML content</h2>
-				<p>These are the modals which generally you create to display forms; a login or a sign-up form.</p>
+				<p>These are the modals which generally you create to display forms; a login, a sign-up form etc.</p>
 
 				<section>
 					<h4>Creating modals</h4>
-					<p>With simple-modals library you can create modals withing seconds with minimum markup. Here is how the markup looks like...</p>
+					<p>Following is a basic template to markup your modals.</p>
 
 					<p>
-<pre><code>&lt;div class=&quot;simple-modal-wrapper&quot; data-modal-id=&quot;my_modal_1&quot; data-animation-duration=&quot;200&quot;&gt;
+<pre><code>&lt;div class=&quot;simple-modal-wrapper&quot; data-modal-id=&quot;my_modal_1&quot; data-animation-duration=&quot;300&quot;&gt;
 
     &lt;div class=&quot;modal-content&quot;&gt;
 
@@ -42,31 +53,33 @@
 &lt;/div&gt;</code></pre>
 					</p>
 
-					<p>The modal should be wrapped in <code>div</code> with class <code>simple-modal-wrapper</code>. This is the main wrapper which is fixed on the viewport and given dark background. Every <code>simple-modal-wrapper</code> should have the attribute <code>data-modal-id</code> whose unique value is set by you (here it is set as - my_modal_1) and is used to identify, trigger and close the modal.</p>
+					<p>The modal should be wrapped in <code>div</code> with class <code>simple-modal-wrapper</code>. Every <code>simple-modal-wrapper</code> should have the attribute <code>data-modal-id</code> whose unique value is set by you (here it is set as - my_modal_1).</p>
 
-					<p>The model content is then wrapped in <code>div</code> with class <code>modal-content</code>. You should then add a "p" tag and give it the class "modal-heading". </p>
+					<p>The model content is then wrapped in <code>div</code> with class <code>modal-content</code>. You should then add a <code>p</code> tag and give it the class <code>modal-heading</code>. </p>
 
 					<p><code>&lt;p class=&quot;modal-heading&quot;&gt;My modal heading&lt;/p&gt;</code></p>
 
-					<p>This "p" tag is then used as the header for the modal. You can omit this "p" tag if you want a modal without header. The actual markup of the modal content should be wrapped in a <code>div</code> with class <code>modal-body</code>.</p>
+					<p>This <code>p</code> tag is then used as the header for the modal. You can omit this "p" tag if you want a modal without header. The actual markup of the modal content should be wrapped in a <code>div</code> with class <code>modal-body</code>.</p>
 				</section>
 
 
 				<section>
 					<h4>Triggering and closing modals</h4>
-					<p>Anything that can be clicked could be used to trigger the modal. Here is how to make a button that will trigger the above modal.</p>
+					<p>Any click-able element can be used to open modals. Here is how to make a button that will trigger the above modal.</p>
 
 					<p>
 						<code>
 							&lt;button class=&quot;simple-modal-trigger&quot; data-trigger-modal-id = &quot;my_modal_1&quot;&gt;Click me!&lt;/button&gt;
 						</code>
 					</p>
+					<p class="center"><button class="simple-modal-trigger example-button" data-trigger-modal-id = "my_modal_1">Click me!</button></p>
 
-					<p>Modal triggers are identified by the class <code>simple-modal-trigger</code>. The attribute <code>data-trigger-modal-id</code> must have the same value as assigned to the <code>data-modal-id</code> attribute of the <code>&quot;simple-modal-wrapper&quot;</code> div of the respective modal.</p>
+					<p>Modal triggers are identified by the class <code>simple-modal-trigger</code>. The <code>data-trigger-modal-id</code> of the <code>button</code> and <code>data-modal-id</code> attribute of the <code>simple-modal-wrapper</code> should match.</p>
 
-					<p>By default, the modal header will have a clickable "X" mark to close the modal. The modal will also close if the user clicks anywhere outside it. You can also add your own elements to close the modal like this</p>
+					<p>By default, the modal header will have a click-able <code>&times;</code> mark to close the modal. The modal closes if user clicks outside it. Here is how you can make your own close button</p>
 
-					<p><code>&lt;button class=&quot;simple-modal-close&quot;&gt;Close Modal&lt;/button&gt;</code></p>			
+					<p><code>&lt;button class=&quot;simple-modal-close&quot;&gt;Close Modal&lt;/button&gt;</code></p>
+					<p class="center"><button class="simple-modal-trigger example-button" data-trigger-modal-id = "mod2">Modal with close button</button></p>			
 
 					<p>The class <code>simple-modal-close</code> is used to mark the button which will close the modal. <b>This</b> button, obviously, would be somewhere inside the <code>modal-body</code>; since that is the only area accessible to user when modal is active.</p>
 				</section>
@@ -78,8 +91,11 @@
 					<p>Setting <code>data-animation-duration</code> to 0 turns off the animation.</p>
 					<p>The modals could be fully styled using the same classes that are used in the markup. Here is differently styled modal.</p>
 
+					<p class="center"><button class="simple-modal-trigger example-button" data-trigger-modal-id = "mod3">a kinky modal</button></p>
+
 					<p>By default the modals are centered on viewport using CSS3 transforms. This is the actual CSS used</p>
 
+					<p>
 <pre><code>.modal-content{
 	width: 95%; /* fall-back value for mobile size */
 	width: calc(100% - 20px);
@@ -91,8 +107,28 @@
     -webkit-transform: translate(-50%, -50%);
     	transform: translate(-50%, -50%)
 }</code></pre>
+					</p>
 
 					<p>If you don't want to use CSS transforms, you can override them and use your own styles to position the modal. Here is an example</p>
+
+					<p class="center"><button class="simple-modal-trigger example-button" data-trigger-modal-id = "mod4">Positioned modal</button></p>
+
+					<p>
+<pre><code>
+div[data-modal-id="mod4"] .modal-content {
+	/*remove defaults*/
+	top:auto;
+	left:auto;
+	position: static;
+	-ms-transform: none;
+	-webkit-transform: none;
+		transform: none;
+
+	/*add your own*/
+	margin: 100px auto;
+}
+</code></pre>
+				          </p>
 				</section>
 
 				<section>
@@ -104,21 +140,103 @@
 
 			<article>
 				<h2>modals for images</h2>
-				<p>As an addition, you can also use simple-modals library to create special image modals that display your images to the full screen. To do this add the "image-modal" class to the 'img' tag like this</p>
+				<p>As an addition, you can also use simple-modals library to create special image modals that display your images to the full screen. To do this add the "image-modal" class to the <code>img</code> tag like this</p>
 
 				<p>
 					<code>&lt;img src=&quot;test.jpg&quot; class=&quot;image-modal&quot;&gt;</code>
 				</p>
 
+				<p class="center"><img src="images/sunset.jpg" class="image-modal"></p>
+
 				<p>Now it becomes a zoom-able image which can be viewed in larger size on click. If image is smaller than the viewport, it will be centered. If it is larger than user's screen, it will scaled to biggest possible size <b>without</b> changing the aspect ratio of the image.</p>
 
-				<p>You can also set the <code>data-animation-duration</code> attribute on the "img" tag to change the animation speed or remove it.</p>
+				<p class="center"><img src="images/spring.jpg" class="image-modal" data-animation-duration="0"></p>
+
+				<p>You can also set the <code>data-animation-duration</code> attribute on the <code>img</code> tag to change the animation speed or remove it.</p>
 			</article>
+
+			<div id="example-modals">
+
+				<div class="simple-modal-wrapper" data-modal-id="my_modal_1" data-animation-duration="300">
+				    <div class="modal-content">
+				        <p class="modal-heading">Modal Heading</p>
+
+				        <div class="modal-body">
+				          <p>The modal's content markup goes here</p>
+				        </div>
+			    	</div>
+				</div>
+
+				<div class="simple-modal-wrapper" data-modal-id="mod1">
+				    <div class="modal-content">
+				        <p class="modal-heading">A Demo Modal</p>
+
+				        <div class="modal-body">
+
+				          <p><span class="blue-text">simple-modals</span> is a jQuery based library using which you can make modals, like this one, easily and with minimum markup.</p>
+
+				          <div class="dummy-form-wrapper">
+				          	<div class="form-item">
+				          		<label>input field 1</label>
+				          		<input type="text" placeholder="a dummy form">
+				          	</div>
+				          	<div class="form-item">
+				          		<label>input field 2</label>
+				          		<input type="text" placeholder="a dummy form">
+				          		
+				          	</div>
+				          	<div class="form-item">
+				          		<p class="right"><button class="simple-modal-close close-button">Close</button></p>
+				          	</div>
+
+				          </div><!-- END DUMMY FORM WRAPPER -->
+				        </div><!-- END MODAL BODY -->
+			    	</div><!-- END MODAL CONTENT -->
+				</div><!-- END SIMPLE MODAL WRAPPER -->
+
+				<div class="simple-modal-wrapper" data-modal-id="mod2">
+				    <div class="modal-content">
+				        <p class="modal-heading">Modal Heading</p>
+
+				        <div class="modal-body">
+				          <p>This modal also has a close button</p>
+				          <button class="simple-modal-close close-button">Close Modal</button>
+				        </div>
+			    	</div>
+				</div>
+
+				<div class="simple-modal-wrapper" data-modal-id="mod3" data-animation-duration="0">
+				    <div class="modal-content">
+				        <p class="modal-heading">A Kinky Modal</p>
+
+				        <div class="modal-body">
+				          <p>This modal has no animation and a different color scheme. Also notice different dark blue color of the overlay.</p>
+				          <p class="center"><button class="simple-modal-close close-button">Close</button></p>
+				        </div>
+			    	</div>
+				</div>
+
+
+
+				<div class="simple-modal-wrapper" data-modal-id="mod4">
+				    <div class="modal-content">
+				        <p class="modal-heading">Positioned Modal</p>
+
+				        <div class="modal-body">
+				          <p>This modal is positioned by overriding CSS3 transforms and using good old margins :)</p>
+				        </div>
+			    	</div>
+				</div>
+
+			</div><!--*************** 	END EXAMPLE MODALS ***************-->
 
 		</div>
 
 		<footer>
-			<p>This is some footer content</p>
+			<div class="footer-wrapper">
+				<p><span class="blue-text">simple-modals</span> is built and maintained by Abhimanyu Pathania</p>
+				<p>Find me on GitHub <span class="github-logo"></span></p>
+			</div>
 		</footer>
 	</div>
 

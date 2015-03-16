@@ -15,6 +15,20 @@ a{
 	text-decoration: none;
 }
 
+article a{
+	color: #1abc9c;
+}
+
+article a:hover{
+	font-weight: 400;
+	text-decoration: underline;
+}
+
+.blue-text{
+	color: #3498db;
+	font-weight: 400;
+}
+
 button{
 	-webkit-appearance: none;
     -moz-appearance:    none;
@@ -24,11 +38,48 @@ button{
     border-radius: 5px;
     color: inherit;
 
+	font-family: 'Open Sans', Helvetica, sans-serif;
+    font-size: 0.8em;
+    font-weight: 300;
+
     cursor: pointer;
-    text-transform: uppercase;
-    transition: background-color 0.15s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
 }
 
+.example-button{
+	padding: 10px 20px;
+	background-color: #1abc9c;
+	border-color: #1abc9c;
+	color: #FFF;
+	font-weight: 400;
+	text-transform: uppercase;
+}
+
+.close-button{
+	padding: 4px 6px;
+	font-weight: 400;
+	color: #fff;
+	background-color: #e74c3c;
+	border-color: #e74c3c;
+}
+
+.close-button:hover{
+	background-color: #c0392b;
+	border-color: #c0392b;
+}
+
+.example-button:hover{
+	background-color: #16a085;
+	border-color: #16a085;
+}
+
+.center{
+	text-align: center;
+}
+
+.right{
+	text-align: right;
+}
 
 
 
@@ -38,17 +89,31 @@ header{
 	align-items:center;
 	justify-content: center;
 
-	height: 600px;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	height: 100%;
+	width: 100%;
+
 	background-color: #ecf0f1;
+}
 
-	/* fix background */
-    background-attachment: fixed;
 
-    /* center it */
-    background-position: center center;
+.main-wrapper{
+	position: relative;
 
-    /* Scale it nicely to the element */
-    background-size: cover;
+	/*its top value is applied by JS
+	to be equal to height of the header
+	which is equal to that of the viewport*/
+
+	/*without this header won't appear collapsing*/
+	background-color: #fff;
+}
+
+.content{
+	max-width: 650px;
+	margin: 0px auto;
+	padding-top: 50px;
 }
 
 header h1{
@@ -63,25 +128,24 @@ header p{
 
 header button{
 	margin-top: 40px;
-	padding: 20px 40px;
+	padding: 8px 22px;
 
-	font-size: 1.1em;
-	font-weight: 400;
+	font-size: 1em;
+	font-weight: 300;
+	text-transform: uppercase;
 
 	background-color: #3498db;
 	border-color: #3498db;
 	color: #fff;
 }
 
-header button:hover{
-	border-color: #34D6D5;
-	background-color: #34D6D5;
+header button:nth-of-type(1){
+	margin-right: 10px;
 }
 
-.main-wrapper{
-	max-width: 650px;
-	margin: 0px auto;
-	margin-top: 40px;
+header button:hover{
+	border-color: #34B7DC;
+	background-color: #34B7DC;
 }
 
 code, pre{
@@ -137,9 +201,8 @@ h4{
 	margin-bottom: 15px;
 }
 
-p{
+article p{
 	line-height: 1.5em;
-
 	margin-bottom: 10px;
 }
 
@@ -155,3 +218,111 @@ section{
 section p{
 	margin-bottom: 20px;
 }
+
+
+footer{
+	background-color: #ecf0f1;
+}
+
+
+
+/* ------------------------------------------EXAMPLE MODALS STYLES------------------------------------------ */
+/*------------------------------------------------------------------------------------------------------------*/
+
+img{
+	width: 100%;
+}
+
+
+div[data-modal-id="mod1"] .modal-content{
+	border-radius: 5px;
+}
+
+div[data-modal-id="mod1"] label{
+	display: block;
+	font-weight: 400;
+	margin-bottom: 5px;
+}
+
+div[data-modal-id="mod1"] input{
+	outline: none;
+	width: 100%;
+	height: 50px;
+
+	font-family: inherit;
+	color: inherit;
+	font-size: 1em;
+	font-weight: 300;
+
+	border: 1px solid #3498db;
+	border-radius: 25px;
+	padding: 0px 20px;
+
+
+	transition: box-shadow 0.25s ease-in-out;
+}
+
+div[data-modal-id="mod1"] input:focus{
+	box-shadow: 0px 0px 5px 0px #3498db; 
+}
+
+.dummy-form-wrapper{
+	width: 75%;
+	margin: 10px auto;
+}
+
+.form-item{
+	margin-top: 15px;
+}
+
+
+
+
+
+div[data-modal-id="mod2"] .modal-body button{
+	margin-top: 20px;
+	border-radius: 0;
+}
+
+
+
+
+div[data-modal-id="mod3"]{
+	background-color: rgba(44, 62, 80, 0.8);
+}
+
+
+div[data-modal-id="mod3"] .modal-content{
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px 0px #CCFF00; 
+}
+
+div[data-modal-id="mod3"] .modal-heading{
+	background-color: #CCFF00;
+}
+
+div[data-modal-id="mod3"] .modal-body{
+	background-color:#ecf0f1;
+	color: #7f8c8d;
+}
+
+div[data-modal-id="mod3"] .modal-body button{
+	height: 40px;
+	padding: 0px 10px;
+	border-radius: 20px;
+}
+
+
+div[data-modal-id="mod4"] .modal-content {
+	/*remove defaults*/
+	top:auto;
+	left:auto;
+	position: static;
+	-ms-transform: none;
+    -webkit-transform: none;
+    	transform: none;
+
+    /*add your own*/
+    margin: 100px auto;
+}
+
