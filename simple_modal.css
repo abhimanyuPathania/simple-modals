@@ -1,5 +1,4 @@
 
-
 .simple-modal-wrapper, .simple-modal-wrapper *{
 	padding: 0;
 	margin: 0;
@@ -17,6 +16,7 @@
 }
 
 .modal-content{
+	width: 95%; /* fallback value for mobile size */
 	width: calc(100% - 20px);
 	position: absolute;
 	top: 50%;
@@ -71,7 +71,7 @@
 
 /*------------ MEDIA QUERIES FOR SIMPLE MODALS ------------*/
 
-@media screen and (min-width: 501px){
+@media screen and (min-width: 480px){
 	.modal-content{
 		width: 90%;
 	}
@@ -84,7 +84,7 @@
 
 	.modal-heading{
 		padding: 10px 20px;
-		font-size: 1.2em;
+		font-size: 1.1em;
 	}
 
 	.modal-body{
@@ -132,6 +132,7 @@
 
 	/* this corrects sizes given by auto if
 	 the viewport(mobile) is smaller than image */
+	max-width: 95%;
 	max-width: calc(100% - 20px);
 
 	/*this scales images to viewport height */
