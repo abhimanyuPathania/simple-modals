@@ -58,13 +58,19 @@ $(document).ready(function () {
 			//defining closeModal inside the openModal give it
 			//closure access to the pertinent modalDiv
 
-			if (event.target !== event.currentTarget){
+			if (event.target === event.currentTarget){
 				/*this prevents the click on/inside actual modal
 				to fire click event on the dark background and close
 				the modal*/
+
+				// close the modal
+				modalDiv.fadeOut(duration);
+
+				// stop the bubbling of the click event
+				/* this prevents unintended form submits if the user has 'close' button
+				   inside the form with undeclared 'type' attribute */
 				return false;
 			}
-			modalDiv.fadeOut(duration);
 		}
 	}
 
